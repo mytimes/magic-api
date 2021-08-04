@@ -2,6 +2,7 @@ package org.ssssssss.magicapi.dialect;
 
 
 import org.ssssssss.magicapi.modules.BoundSql;
+import org.ssssssss.magicapi.utils.CountSqlParser;
 
 public class MySQLDialect implements Dialect {
 
@@ -15,5 +16,11 @@ public class MySQLDialect implements Dialect {
 		boundSql.addParameter(offset);
 		boundSql.addParameter(limit);
 		return sql + " limit ?,?";
+	}
+	@Override
+	public String getCountSql(String sql) {
+		CountSqlParser countSqlParser = new CountSqlParser();
+		return countSqlParser.getSmartCountSql(sql);
+		//return "select count(1) from (" + sql + ") count_";
 	}
 }
